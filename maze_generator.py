@@ -26,12 +26,15 @@ def breadth_first_generation(width=64, height=64):
     matrix += [[255]*(2*width + 5)]*2
 
     def walk(x, y):
+        # Create a stack, push the chosen cell in there, mark it visited
         stack = []
         visited[y][x] = True
         stack.append((x, y))
 
         while len(stack) > 0:
+            # Pop the cell from the stack
             x, y = stack.pop(-1)
+
             # translate the coordinates into real pixel cells
             real_x, real_y = 2*x+1, 2*y+1
 
@@ -42,13 +45,17 @@ def breadth_first_generation(width=64, height=64):
                  ((x, y-1), (real_x, real_y-1))]
             shuffle(d)
 
+            # Go over each of the neighboring cells
             for choice in d:
                 xx, yy = choice[0]
                 real_xx, real_yy = choice[1]
 
+                # If the neighboring cell was visited, go to the next one
                 if visited[yy][xx]:
                     continue
 
+                # Remove the wall between the cells, push the current cell and
+                # the chosen cell to the stack. Mark it visited
                 matrix[real_yy][real_xx] = 0
                 stack.append((x, y))
                 stack.append((xx, yy))
@@ -59,7 +66,6 @@ def breadth_first_generation(width=64, height=64):
         image = Image.fromarray(npmatrix.astype('uint8'))
         image.save(f'image.jpg')
 
-    # walk(randint(0, width-1), randint(0, height-1))
     walk(1, 1)
 
 
