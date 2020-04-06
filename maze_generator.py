@@ -28,6 +28,8 @@ def make_maze(width=16, height=8):
     def walk(x, y):
         visited[y][x] = True
         real_x, real_y = 2*x+1, 2*y+1
+
+        # generate a random move to the neighbor cell
         d = [((x-1, y), (real_x-1, real_y)),
              ((x, y+1), (real_x, real_y+1)),
              ((x+1, y), (real_x+1, real_y)),
@@ -43,12 +45,13 @@ def make_maze(width=16, height=8):
 
             matrix[real_yy][real_xx] = 0
 
-            os.system('cls')
-
+            # generate a live image from the array
             npmatrix = np.array(matrix)
             image = Image.fromarray(npmatrix.astype('uint8'))
             image.save('image.jpg')
 
+            # print out a debug matrix
+            os.system('cls')
             for row in matrix:
                 row_chars = ''
                 for col in row:
@@ -58,7 +61,7 @@ def make_maze(width=16, height=8):
                         row_chars += " "
                 print(row_chars)
 
-            sleep(0.2)
+            # sleep(0.2)
             walk(xx, yy)
 
     # walk(randint(0, width-1), randint(0, height-1))
