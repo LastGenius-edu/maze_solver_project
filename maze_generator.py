@@ -19,14 +19,16 @@ def make_maze(width=16, height=8):
 
     # Making a pixel-like matrix of cells and walls
     # 255 is white color, 0 is black color
-    matrix = [[255]*(2*width + 5)] + [[255]*(2*width + 5)] + [[255]*(2*width + 5)]
+    matrix = [[255]*(2*width + 5)]*3
     for _ in range(height):
         matrix += [[255, 255, 255] + [0, 255] * width + [255, 255]]
         matrix += [[255]*(2*width+5)]
-    matrix += [[255]*(2*width + 5)] + [[255]*(2*width + 5)]
+    matrix += [[255]*(2*width + 5)]*2
 
     def walk(x, y):
         visited[y][x] = True
+
+        # translate the coordinates into real pixel cells
         real_x, real_y = 2*x+1, 2*y+1
 
         # generate a random move to the neighbor cell
