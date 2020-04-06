@@ -1,3 +1,4 @@
+# Imports
 from random import shuffle, randint
 import os
 import numpy as np
@@ -13,24 +14,16 @@ def make_maze(width=16, height=8):
     until there are no more and then we return by the stack to the last such one,
     deleting walls along the way
     """
+    # making a matrix of visited cells
     visited = [[True]*(width+2)] + [[True] + ([False] * width) + [True] for _ in range(height)] + [[True]*(width+2)]
+
+    # Making a pixel-like matrix of cells and walls
+    # 255 is white color, 0 is black color
     matrix = [[255]*(2*width + 5)] + [[255]*(2*width + 5)] + [[255]*(2*width + 5)]
-
-    print(visited)
-
     for _ in range(height):
         matrix += [[255, 255, 255] + [0, 255] * width + [255, 255]]
         matrix += [[255]*(2*width+5)]
     matrix += [[255]*(2*width + 5)] + [[255]*(2*width + 5)]
-
-    # for row in matrix:
-    #     row_chars = ''
-    #     for col in row:
-    #         if col:
-    #             row_chars += "O"
-    #         else:
-    #             row_chars += " "
-    #     print(row_chars)
 
     def walk(x, y):
         visited[y][x] = True
@@ -65,14 +58,14 @@ def make_maze(width=16, height=8):
                         row_chars += " "
                 print(row_chars)
 
-            # sleep(0.2)
+            sleep(0.2)
             walk(xx, yy)
 
-    walk(randint(0, width-1), randint(0, height-1))
+    # walk(randint(0, width-1), randint(0, height-1))
+    walk(1, 1)
 
 
 def main():
-    # breadth_first_generation(10, 10)
     make_maze()
 
 
