@@ -65,6 +65,7 @@ def breadth_first_generation(width=64, height=64, name='image.jpg'):
 
         # generate a live image from the array
         npmatrix = np.array(matrix)
+        print(npmatrix)
         image = Image.fromarray(npmatrix.astype('uint8'))
         image.save(name)
 
