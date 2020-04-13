@@ -6,13 +6,15 @@ from PIL import Image
 from time import sleep
 
 
-def breadth_first_generation(width=64, height=64):
+def breadth_first_generation(width=64, height=64, name='image.jpg'):
     """
     Making a maze.
     Each cell starts out with all 4 walls.
     We choose random cell and start with choosing random unvisited neighbor,
     until there are no more and then we return by the stack to the last such one,
-    deleting walls along the way
+    deleting walls along the way.
+
+    Based on the breadth first search. Therefore the maze has a lot of long paths.
     """
     # making a matrix of visited cells
     visited = [[True]*(width+2)] + [[True] + ([False] * width) + [True] for _ in range(height)] + [[True]*(width+2)]
@@ -64,7 +66,7 @@ def breadth_first_generation(width=64, height=64):
         # generate a live image from the array
         npmatrix = np.array(matrix)
         image = Image.fromarray(npmatrix.astype('uint8'))
-        image.save(f'image.jpg')
+        image.save(name)
 
     walk(1, 1)
 
